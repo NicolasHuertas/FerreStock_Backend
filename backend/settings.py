@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!jko+$s8(ydwxqg09*jl)te_swdusp6fanij8g4(!c-w##f2td'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*'
@@ -170,7 +170,7 @@ DATABASES = {
 
 # Database configuration using dj-database-url
 database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"]=dj_database_url.parse("postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db")
+DATABASES["default"]=dj_database_url.parse("postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a.oregon-postgres.render.com/ferrestock_db")
 
 #URL INTERNA PARA CUANDO SE VA A DESPLEGAR LA APLICACIÓN PROBAR SI FUNCIONAN LOS ENDPOINTS 
 #postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db
