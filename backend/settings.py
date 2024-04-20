@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
 
 
 
@@ -28,7 +29,12 @@ SECRET_KEY = 'django-insecure-!jko+$s8(ydwxqg09*jl)te_swdusp6fanij8g4(!c-w##f2td
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+    # Agrega cualquier otro host que necesites permitir
+]
+
+CORS_ALLOWED_ALL_ORIGINS = True
 
 
 # Application definition
@@ -44,7 +50,9 @@ INSTALLED_APPS = [
 
     'inventory',
     'rest_framework',
-    'corsheaders'
+    'rest_framework.authtoken',
+    'corsheaders',
+    'coreapi'
 ]
 
 MIDDLEWARE = [
@@ -147,6 +155,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -157,6 +166,18 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+
+# Database configuration using dj-database-url
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"]=dj_database_url.parse("postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db")
+
+#URL INTERNA PARA CUANDO SE VA A DESPLEGAR LA APLICACIÓN PROBAR SI FUNCIONAN LOS ENDPOINTS 
+#postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db
+
+#URL EXTERNA PARA CONECTARSE A LA BD DESPLEGADA EN RENDER CUANDO TRABAJEMOS LOCAL
+#postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a.oregon-postgres.render.com/ferrestock_db
+
 
 
 # Password validation
