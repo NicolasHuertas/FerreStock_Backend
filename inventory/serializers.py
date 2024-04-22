@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, Product
 
 
 class CustomUserSerializer(serializers.ModelSerializer):    
@@ -33,3 +33,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': e.messages})
 
         return user
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
+        extra_kwargs = {'id': {'read_only': True},
+                        'user': {'read_only': True}
+                        }

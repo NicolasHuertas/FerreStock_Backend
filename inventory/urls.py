@@ -6,4 +6,5 @@ app_name='inventory'
 
 urlpatterns = [    
    path('create/', views.CreateCustomUserView.as_view(), name='create_a_new_CustomUser'),
+   path('products/', views.ProductView.as_view(), name='product-list'),
 ]
