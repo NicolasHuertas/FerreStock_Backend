@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from .models import CustomUser, Product
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class CustomUserSerializer(serializers.ModelSerializer):    
@@ -33,6 +34,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': e.messages})
 
         return user
+    
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Customize token payload here
+        token['username'] = user.username
+        return token
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
