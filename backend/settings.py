@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework_simplejwt',
+
     'inventory',
     'rest_framework',
     'rest_framework.authtoken',
@@ -161,7 +163,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "ferrestock_db",
         "USER": "postgres",
-        "PASSWORD": "NataliaLopez2023",
+        "PASSWORD": "postgress",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -169,8 +171,8 @@ DATABASES = {
 
 
 # Database configuration using dj-database-url
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"]=dj_database_url.parse("postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db")
+#database_url = os.environ.get("DATABASE_URL")
+#DATABASES["default"]=dj_database_url.parse("postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db")
 
 #URL INTERNA PARA CUANDO SE VA A DESPLEGAR LA APLICACIÓN PROBAR SI FUNCIONAN LOS ENDPOINTS 
 #postgres://ferrestock_db_user:WuJFsfhYmCC6bHstORpwaZzemDiCQQd9@dpg-cohkhhv79t8c7383c610-a/ferrestock_db
