@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework_simplejwt',
+
     'inventory',
     'rest_framework',
     'rest_framework.authtoken',
@@ -161,7 +163,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "ferrestock_db",
         "USER": "postgres",
-        "PASSWORD": "NataliaLopez2023",
+        "PASSWORD": "postgress",
         "HOST": "localhost",
         "PORT": "5432",
     }
