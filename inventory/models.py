@@ -60,3 +60,16 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f'user email: {self.email} \n username:{self.username}'
+
+class Product(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    description = models.CharField(max_length=200, blank=True, null=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False)
+    stock = models.PositiveIntegerField(blank=False, null=False)
+    pending_stock = models.PositiveIntegerField(default=0, blank=True) #Unidades vendidas pero no entregadas
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    #thumbnail = models.ImageField(aaaaaaaaa)
+
+
+    def __str__(self):
+        return f'User ID: {self.user} \n Product name: {self.name} \n Price: {self.price} \n Stock: {self.stock}'
