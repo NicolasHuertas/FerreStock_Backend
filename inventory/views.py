@@ -69,11 +69,8 @@ class ProductView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     #permission_classes = [permissions.AllowAny]
 
-    #def get_queryset(self):
-    #    return Product.objects.filter(user=self.request.user)
-
     def get_queryset(self):
-        return Product.objects.all()
+        return Product.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
