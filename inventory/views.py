@@ -19,8 +19,9 @@ class CreateCustomUserView(generics.CreateAPIView):
 
 class ProductView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
-    #permission_classes = [permissions.IsAuthenticated]
-    permission_classes = [permissions.AllowAny]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.AllowAny]
 
     #def get_queryset(self):
     #    return Product.objects.filter(user=self.request.user)
@@ -28,18 +29,5 @@ class ProductView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Product.objects.all()
 
-    #def perform_create(self, serializer):
-        #serializer.save(user=self.request.user)
-    
-
     def perform_create(self, serializer):
-        user_id = self.request.data.get('user_id')
-        if user_id:
-            try:
-                user = CustomUser.objects.get(pk=user_id)
-                # Save the instance created by the serializer to the database
-                serializer.save(user=user)
-            except CustomUser.DoesNotExist:
-                raise ValidationError({'error': 'User with the provided ID does not exist.'})
-        else:
-            raise ValidationError({'error': 'User ID must be provided to create a product.'})
+        serializer.save(user=self.request.user)
