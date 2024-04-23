@@ -163,7 +163,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "ferrestock_db",
         "USER": "postgres",
-        "PASSWORD": "postgress",
+        #"PASSWORD": "NataliaLopez2023",
+        "PASSWORD": "postgres",
         "HOST": "localhost",
         "PORT": "5432",
     }

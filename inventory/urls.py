@@ -11,5 +11,6 @@ app_name='inventory'
 urlpatterns = [    
    path('create/', CreateCustomUserView.as_view(), name='create_a_new_CustomUser'),
    path('api/token/', CustomAuthToken.as_view(), name='auth_token'),
-   path('api/logout/', LogoutView.as_view(), name='logout')
+   path('api/logout/', LogoutView.as_view(), name='logout'),
+   path('products/', views.ProductView.as_view(), name='product-list')
 ]
