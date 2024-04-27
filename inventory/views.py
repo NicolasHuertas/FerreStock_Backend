@@ -63,11 +63,24 @@ class LogoutView(APIView):
             return JsonResponse({'success': 'Logout successful'}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-class ProductView(generics.ListCreateAPIView):
+class ProductListView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     #permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        return Product.objects.filter(user=self.request.user)
+
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'id'
 
     def get_queryset(self):
         return Product.objects.filter(user=self.request.user)
