@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer
+    ProductSerializer, ViewCustomUserSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -19,7 +19,10 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-
+    
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 # Create your views here.
 class CreateCustomUserView(generics.CreateAPIView):
@@ -28,10 +31,6 @@ class CreateCustomUserView(generics.CreateAPIView):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-    
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -63,6 +62,8 @@ class LogoutView(APIView):
             return JsonResponse({'success': 'Logout successful'}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+        
+
 class ProductListView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     authentication_classes = [TokenAuthentication]
@@ -71,7 +72,6 @@ class ProductListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(user=self.request.user)
-
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -87,3 +87,29 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class CustomUserListView(generics.ListCreateAPIView):
+    serializer_class = ViewCustomUserSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user_id = self.request.query_params.get('user')
+        if user_id:
+            return CustomUser.objects.filter(id=user_id)
+        else:
+            return CustomUser.objects.all()
+    
+class ProductListUsersView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user_id = self.request.query_params.get('user')
+        if user_id:
+            return Product.objects.filter(user=user_id)
+        else:
+            return Product.objects.all()
+        
