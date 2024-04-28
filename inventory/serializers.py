@@ -51,3 +51,24 @@ class ProductSerializer(serializers.ModelSerializer):
         extra_kwargs = {'id': {'read_only': True},
                         'user': {'read_only': True}
                         }
+        
+
+class ViewCustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id',
+                  'username',
+                  'email', 
+                  'address',
+                  'contact',
+                  'manager'
+                 ]
+        extra_kwargs = {
+            'id': {'read_only': True},
+            'username': {'read_only': True},
+            'email': {'read_only': True},
+            'address': {'read_only': True},
+            'contact': {'read_only': True},
+            'manager': {'read_only': True},
+             }
+          
