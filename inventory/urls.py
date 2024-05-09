@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (MyTokenObtainPairView, CreateCustomUserView,CustomAuthToken,
-                    LogoutView,ProductListView,ProductDetailView,CustomUserListView,ProductListUsersView)
+                    LogoutView,ProductListView,ProductDetailView,CustomUserListView,ProductListUsersView,SupplierCreateAPIView,SuppllierUpdateAPIView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -19,4 +19,6 @@ urlpatterns = [
 
    path('users/', CustomUserListView.as_view(), name='customuser-list'),##GET obtiene las sedes registradas
    path('products/users/', ProductListUsersView.as_view(), name='product-users-list'),##GET para obtener la lista de los productos sin importar la sede o filtrando por sede
+   path('supplier/register/', SupplierCreateAPIView.as_view(), name='supplier-reg'),
+   path('supplier/<int:pk>/edit/', SuppllierUpdateAPIView.as_view(), name='supplier-edit'),
 ]
