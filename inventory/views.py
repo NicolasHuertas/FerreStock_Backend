@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Product
+from .models import CustomUser, Product,Supplier
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer, ViewCustomUserSerializer
+    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -112,4 +112,15 @@ class ProductListUsersView(generics.ListAPIView):
             return Product.objects.filter(user=user_id)
         else:
             return Product.objects.all()
+
         
+class SupplierCreateAPIView(generics.CreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+class SuppllierUpdateAPIView(generics.UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer

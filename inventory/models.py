@@ -73,3 +73,13 @@ class Product(models.Model):
 
     def __str__(self):
         return f'User ID: {self.user} \n Product name: {self.name} \n Price: {self.price} \n Stock: {self.stock}'
+
+class Supplier(models.Model):
+    company_name = models.CharField(max_length=100)
+    contact_name=models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    tel = models.CharField(max_length=20)
+    email = models.EmailField(unique=True)
+    
+    def __str__(self):
+        return self.company_name

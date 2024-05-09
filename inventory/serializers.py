@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
-from .models import CustomUser, Product
+from .models import CustomUser, Product,Supplier
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -71,4 +71,8 @@ class ViewCustomUserSerializer(serializers.ModelSerializer):
             'contact': {'read_only': True},
             'manager': {'read_only': True},
              }
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['id', 'company_name', 'contact_name','address', 'tel', 'email']
           
