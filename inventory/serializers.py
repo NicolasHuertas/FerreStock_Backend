@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
-from .models import CustomUser, Product,Supplier
+from .models import CustomUser, Product,Supplier, Order, OrderItem
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -76,3 +76,12 @@ class SupplierSerializer(serializers.ModelSerializer):
         model = Supplier
         fields = ['id', 'company_name', 'contact_name','address', 'tel', 'email']
           
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['user', 'date', 'status', 'supplier']
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['order', 'product', 'quantity']

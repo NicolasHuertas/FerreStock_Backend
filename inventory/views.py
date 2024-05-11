@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Product,Supplier
+from .models import CustomUser, Order, Product,Supplier
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer
+    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -124,3 +124,17 @@ class SuppllierUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
+
+class OrderCreateView(generics.CreateAPIView):
+    serializer_class = OrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        order = serializer.save(user=self.request.user)
+        order_items_data = self.request.data.get('items')
+        for item_data in order_items_data:
+            item_data['order'] = order.id
+            item_serializer = OrderItemSerializer(data=item_data)
+            if item_serializer.is_valid(raise_exception=True):
+                item_serializer.save()

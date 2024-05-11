@@ -83,3 +83,20 @@ class Supplier(models.Model):
     
     def __str__(self):
         return self.company_name
+
+class Order(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, default="Pending")
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'User: {self.user} \n Date: {self.date} \n Status: {self.status}'
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'Order: {self.order.id} \n Product: {self.product} \n Quantity: {self.quantity}'
