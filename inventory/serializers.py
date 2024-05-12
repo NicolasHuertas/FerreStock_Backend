@@ -85,3 +85,30 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ['order', 'product', 'quantity']
+
+
+class ViewOrderSupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['id', 'company_name', 'email']
+
+class ViewOrderProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description']
+    
+class ViewOrderItemSerializer(serializers.ModelSerializer):
+    product = ViewOrderProductSerializer(read_only=True)
+
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'quantity']
+
+class ViewOrderSerializer(serializers.ModelSerializer):
+    items = ViewOrderItemSerializer(many=True, read_only=True)
+    supplier = ViewOrderSupplierSerializer(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['id','user', 'date', 'status', 'supplier', 'items']
+

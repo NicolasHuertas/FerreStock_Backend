@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer
+    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer,ViewOrderSerializer,
+    ViewOrderProductSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -141,3 +142,25 @@ class OrderCreateView(generics.CreateAPIView):
             item_serializer = OrderItemSerializer(data=item_data)
             if item_serializer.is_valid(raise_exception=True):
                 item_serializer.save()
+
+class OrderListView(generics.ListAPIView):
+    serializer_class = ViewOrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Order.objects.filter(user=self.request.user)
+        status = self.request.query_params.get('status')
+        supplier = self.request.query_params.get('supplier')
+        order_id = self.request.query_params.get('id')
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        if supplier:
+            queryset = queryset.filter(supplier__id=supplier)
+
+        if order_id:
+            queryset = queryset.filter(id=order_id)
+
+        return queryset
