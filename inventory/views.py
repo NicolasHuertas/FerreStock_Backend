@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Product,Supplier
+from .models import CustomUser, Order, Product,Supplier
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer
+    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer,ViewOrderSerializer,
+    ViewOrderProductSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -124,3 +125,42 @@ class SuppllierUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
+
+class OrderCreateView(generics.CreateAPIView):
+    serializer_class = OrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        order = serializer.save(user=self.request.user)
+        order_items_data = self.request.data.get('items')
+        for item_data in order_items_data:
+            product = Product.objects.get(id=item_data['product'])
+            if product.user.id != self.request.user.id:
+                raise ValidationError('User ID does not match')
+            item_data['order'] = order.id
+            item_serializer = OrderItemSerializer(data=item_data)
+            if item_serializer.is_valid(raise_exception=True):
+                item_serializer.save()
+
+class OrderListView(generics.ListAPIView):
+    serializer_class = ViewOrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Order.objects.filter(user=self.request.user)
+        status = self.request.query_params.get('status')
+        supplier = self.request.query_params.get('supplier')
+        order_id = self.request.query_params.get('id')
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        if supplier:
+            queryset = queryset.filter(supplier__id=supplier)
+
+        if order_id:
+            queryset = queryset.filter(id=order_id)
+
+        return queryset
