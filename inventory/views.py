@@ -134,6 +134,9 @@ class OrderCreateView(generics.CreateAPIView):
         order = serializer.save(user=self.request.user)
         order_items_data = self.request.data.get('items')
         for item_data in order_items_data:
+            product = Product.objects.get(id=item_data['product'])
+            if product.user.id != self.request.user.id:
+                raise ValidationError('User ID does not match')
             item_data['order'] = order.id
             item_serializer = OrderItemSerializer(data=item_data)
             if item_serializer.is_valid(raise_exception=True):
