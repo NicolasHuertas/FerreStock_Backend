@@ -85,9 +85,14 @@ class Supplier(models.Model):
         return self.company_name
 
 class Order(models.Model):
+    STATUS_CHOICES = (
+        ('Pendiente', 'Pendiente'),
+        ('Entregado', 'Entregado'),
+    )
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, default="Pending")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pendiente')
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
 
     def __str__(self):
