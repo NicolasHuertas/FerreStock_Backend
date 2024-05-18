@@ -126,6 +126,12 @@ class SuppllierUpdateAPIView(generics.UpdateAPIView):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
 
+class SuppllierListAPIView(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+
 class OrderCreateView(generics.CreateAPIView):
     serializer_class = OrderSerializer
     authentication_classes = [TokenAuthentication]
