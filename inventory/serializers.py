@@ -107,8 +107,9 @@ class ViewOrderItemSerializer(serializers.ModelSerializer):
 class ViewOrderSerializer(serializers.ModelSerializer):
     items = ViewOrderItemSerializer(many=True, read_only=True)
     supplier = ViewOrderSupplierSerializer(read_only=True)
+    id_order = serializers.IntegerField(source='id')
 
     class Meta:
         model = Order
-        fields = ['id','user', 'date', 'status', 'supplier', 'items']
+        fields = ['id_order','user', 'date', 'status', 'supplier', 'items']
 
