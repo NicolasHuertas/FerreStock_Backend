@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (MyTokenObtainPairView, CreateCustomUserView,CustomAuthToken,
                     LogoutView,ProductListView,ProductDetailView,CustomUserListView,ProductListUsersView,SupplierCreateAPIView,SuppllierUpdateAPIView,OrderCreateView,SuppllierListAPIView,
-                    OrderListView)
+                    OrderListView, UpdateOrderStatusView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,5 +25,6 @@ urlpatterns = [
    path('suppliers/', SuppllierListAPIView.as_view(), name='supplier-list'),
 
    path('order/create/', OrderCreateView.as_view(), name='order-create'),
-   path('orders/', OrderListView.as_view(), name='orders-list')
+   path('orders/', OrderListView.as_view(), name='orders-list'),
+   path('order/update-order-status/', UpdateOrderStatusView.as_view(), name='update-order-status')
 ]
