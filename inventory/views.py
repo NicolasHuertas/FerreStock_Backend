@@ -170,3 +170,25 @@ class OrderListView(generics.ListAPIView):
             queryset = queryset.filter(id=order_id)
 
         return queryset
+    
+class UpdateOrderStatusView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        order_id = request.data.get('order_id')
+        if not order_id:
+            return Response({'message': 'Order ID no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            order = Order.objects.get(id=order_id, user=request.user)
+        except Order.DoesNotExist:
+            return Response({'message': 'Orden no encontrada o no tienes permisos para acceder a esta orden.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if order.status == 'Pendiente':
+            order.status = 'Entregado'
+            order.save()
+            return Response({'message': 'Order status actualizada a Entregado'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Order status no está pendiente, no se hicieron cambios'}, status=status.HTTP_200_OK)
+
