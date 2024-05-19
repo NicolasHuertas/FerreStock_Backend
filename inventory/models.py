@@ -67,9 +67,14 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False)
     stock = models.PositiveIntegerField(blank=False, null=False)
     pending_stock = models.PositiveIntegerField(default=0, blank=True) #Unidades vendidas pero no entregadas
+    #is_pending = models.BooleanField(default=False, blank=True)
+    global_pending = models.BooleanField(default=False, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     #thumbnail = models.ImageField(aaaaaaaaa)
 
+    def save(self, *args, **kwargs):
+        self.global_pending = self.pending_stock > 0
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'User ID: {self.user} \n Product name: {self.name} \n Price: {self.price} \n Stock: {self.stock}'
