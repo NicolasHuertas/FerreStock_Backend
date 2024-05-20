@@ -224,7 +224,7 @@ class UpdateProductStatusView(APIView):
         else:
             if product.pending_stock >= quantity:
                 product.pending_stock -= quantity
-                product.stock += quantity
+                
             else:
                 return Response({'message': 'Stock pendiente insuficiente'}, status=status.HTTP_400_BAD_REQUEST)
             
