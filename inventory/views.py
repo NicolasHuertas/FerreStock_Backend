@@ -197,7 +197,7 @@ class UpdateProductStatusView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def put(self, request):
         product_id = request.data.get('product_id')
         is_pending = request.data.get('is_pending')
         quantity = request.data.get('quantity')
@@ -220,11 +220,14 @@ class UpdateProductStatusView(APIView):
 
 
         if is_pending == 'true':
-            product.pending_stock += quantity
+            if product.stock <= quantity:
+                product.pending_stock += quantity
+            else:
+                return Response({'message': ' La cantidad tomada para stock pendiente excede la del stock'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             if product.pending_stock >= quantity:
                 product.pending_stock -= quantity
-                product.stock += quantity
+                product.stock -=quantity
             else:
                 return Response({'message': 'Stock pendiente insuficiente'}, status=status.HTTP_400_BAD_REQUEST)
             
