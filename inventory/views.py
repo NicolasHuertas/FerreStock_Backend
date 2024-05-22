@@ -266,7 +266,7 @@ class UpdateProductSalesView(APIView):
         if quantity <= available:
             product.stock -= quantity
         else:
-            return Response({'message': f' La cantidad que va a salir de stock  excede la canditad que hay disponible {available}'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': f' La cantidad que va a salir de stock  excede la cantidad que hay disponible {available}'}, status=status.HTTP_400_BAD_REQUEST)
         
         product.save()
         
