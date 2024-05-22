@@ -12,7 +12,8 @@ from .views import (
     SuppllierListAPIView,
     OrderListView, 
     UpdateOrderStatusView,
-    UpdateProductStatusView
+    UpdateProductStatusView,
+    UpdateProductSalesView,
 )
 
 from rest_framework_simplejwt.views import (
@@ -31,6 +32,7 @@ urlpatterns = [
    path('products/', ProductListView.as_view(), name='product-list'),##GET muestra la lista de productos de la sede loggeada - POST crea un producto
    path('products/<int:id>/', ProductDetailView.as_view(), name='product-detail'),
    path('products/pending/', UpdateProductStatusView.as_view(), name='update-product-pending'),
+   path('products/sales/', UpdateProductSalesView.as_view(), name='update-product-sales'),
 
    path('users/', CustomUserListView.as_view(), name='customuser-list'),##GET obtiene las sedes registradas
    path('products/users/', ProductListUsersView.as_view(), name='product-users-list'),##GET para obtener la lista de los productos sin importar la sede o filtrando por sede

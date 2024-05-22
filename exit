@@ -1,0 +1,159 @@
+* [33m2ca64dd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mpendiente[m[33m)[m ajustar la logica de la historia hu10
+[31m|[m *   [33m933ed6f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #35 from NicolasHuertas/development
+[31m|[m [32m|[m[31m\[m  
+[31m|[m [32m|[m[31m/[m  
+[31m|[m[31m/[m[32m|[m   
+* [32m|[m [33m689911f[m[33m ([m[1;31morigin/development[m[33m, [m[1;32mdevelopment[m[33m)[m push pendiente hu10
+* [32m|[m [33mc102d41[m historia: entregas pendientes
+[33m|[m *   [33mb928e23[m Merge pull request #34 from NicolasHuertas/development
+[33m|[m [34m|[m[33m\[m  
+[33m|[m [34m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m   
+* [34m|[m   [33m011f7ca[m Merge pull request #33 from NicolasHuertas/NataliaL
+[36m|[m[1;31m\[m [34m\[m  
+[36m|[m * [34m|[m [33m68e6843[m[33m ([m[1;31morigin/NataliaL[m[33m)[m correción campo listar ordenes
+[36m|[m [1;31m|[m *   [33m69f6a93[m Merge pull request #32 from NicolasHuertas/development
+[36m|[m [1;31m|[m [1;32m|[m[36m\[m  
+[36m|[m [1;31m|[m[36m_[m[1;32m|[m[36m/[m  
+[36m|[m[36m/[m[1;31m|[m [1;32m|[m   
+* [1;31m|[m [1;32m|[m [33m25ecba7[m Merge pull request #31 from NicolasHuertas/NataliaL
+[1;34m|[m[1;31m\[m[1;31m|[m [1;32m|[m 
+[1;34m|[m * [1;32m|[m [33m66b0112[m HU16 - endpoint actualizar estado orden
+[1;34m|[m[1;34m/[m [1;32m/[m  
+* [1;32m|[m   [33m412aac9[m Merge pull request #30 from NicolasHuertas/AlexanderV
+[1;36m|[m[31m\[m [1;32m\[m  
+[1;36m|[m * [1;32m|[m [33md6228aa[m[33m ([m[1;31morigin/AlexanderV[m[33m)[m Adds ListSupliers
+[1;36m|[m[1;36m/[m [1;32m/[m  
+* [1;32m|[m   [33m85e3e67[m Merge pull request #29 from NicolasHuertas/pendiente
+[32m|[m[33m\[m [1;32m\[m  
+[32m|[m * [1;32m\[m   [33maf11133[m[33m ([m[1;31morigin/pendiente[m[33m)[m ...
+[32m|[m [34m|[m[35m\[m [1;32m\[m  
+[32m|[m [34m|[m * [1;32m|[m [33ma4de66d[m Delete .venv directory
+[32m|[m * [35m|[m [1;32m|[m [33m6dce983[m correción de push
+[32m|[m [35m|[m[35m/[m [1;32m/[m  
+* [35m|[m [1;32m|[m [33m36e2e8c[m Delete .venv directory
+* [35m|[m [1;32m|[m   [33m155692e[m Merge pull request #28 from NicolasHuertas/main
+[36m|[m[1;31m\[m [35m\[m [1;32m\[m  
+[36m|[m [1;31m|[m [35m|[m * [33md4cccb3[m Delete .venv directory
+[36m|[m [1;31m|[m [35m|[m[1;31m/[m  
+[36m|[m [1;31m|[m[1;31m/[m[35m|[m   
+[36m|[m * [35m|[m [33m1cf0b49[m Merge pull request #27 from NicolasHuertas/pendiente
+[36m|[m [1;32m|[m[35m\[m[35m|[m 
+[36m|[m [1;32m|[m * [33m26c5994[m limitar a dos opciones el atributo status en la clase Order
+[36m|[m [1;32m|[m[1;32m/[m  
+[36m|[m *   [33m22ae481[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #26 from NicolasHuertas/development
+[36m|[m [1;34m|[m[36m\[m  
+[36m|[m [1;34m|[m[36m/[m  
+[36m|[m[36m/[m[1;34m|[m   
+* [1;34m|[m   [33mf8bf4ae[m Merge pull request #25 from NicolasHuertas/NataliaL
+[1;36m|[m[31m\[m [1;34m\[m  
+[1;36m|[m * [1;34m|[m [33m0cbf5d3[m HU14 - T listar y filtrar pedidos
+[1;36m|[m[1;36m/[m [1;34m/[m  
+* [1;34m|[m   [33m2f99a14[m Merge pull request #24 from NicolasHuertas/Nico
+[32m|[m[33m\[m [1;34m\[m  
+[32m|[m * [1;34m|[m [33ma54ae24[m[33m ([m[1;31morigin/Nico[m[33m)[m user id check for order items
+* [33m|[m [1;34m|[m [33m9e6225c[m Merge pull request #23 from NicolasHuertas/Nico
+[34m|[m[33m\[m[33m|[m [1;34m|[m 
+[34m|[m * [1;34m|[m [33m8d988e4[m Added order create feature
+[34m|[m * [1;34m|[m [33mc6d18bb[m Merge pull request #22 from NicolasHuertas/main
+[34m|[m [36m|[m[1;34m\[m[1;34m|[m 
+[34m|[m [36m|[m *   [33mba3bba8[m Merge pull request #21 from NicolasHuertas/development
+[34m|[m [36m|[m [1;32m|[m[34m\[m  
+[34m|[m [36m|[m[34m_[m[1;32m|[m[34m/[m  
+[34m|[m[34m/[m[36m|[m [1;32m|[m   
+* [36m|[m [1;32m|[m   [33m570bf41[m Merge pull request #20 from NicolasHuertas/AlexanderV
+[1;34m|[m[1;35m\[m [36m\[m [1;32m\[m  
+[1;34m|[m * [36m|[m [1;32m|[m [33m6691816[m Register and Update suppliers
+[1;34m|[m [1;32m|[m [36m|[m[1;32m/[m  
+[1;34m|[m [1;32m|[m[1;32m/[m[36m|[m   
+[1;34m|[m * [36m|[m   [33m5065452[m Merge pull request #19 from NicolasHuertas/development
+[1;34m|[m [1;36m|[m[1;34m\[m [36m\[m  
+[1;34m|[m [1;36m|[m[1;34m/[m [36m/[m  
+[1;34m|[m[1;34m/[m[1;36m|[m [36m|[m   
+* [1;36m|[m [36m|[m   [33mf19cb72[m Merge pull request #18 from NicolasHuertas/NataliaL
+[32m|[m[33m\[m [1;36m\[m [36m\[m  
+[32m|[m * [1;36m|[m [36m|[m [33ma9a4bdf[m HU-011 T1 & T2 endpoint view products and view users
+[32m|[m[32m/[m [1;36m/[m [36m/[m  
+[32m|[m * [36m|[m   [33m5917d24[m Merge pull request #16 from NicolasHuertas/development
+[32m|[m [34m|[m[32m\[m [36m\[m  
+[32m|[m [34m|[m[32m/[m [36m/[m  
+[32m|[m[32m/[m[34m|[m [36m|[m   
+* [34m|[m [36m|[m [33m39b0f39[m Merge branch 'main' into development
+[36m|[m[34m\[m[34m|[m [36m|[m 
+[36m|[m * [36m|[m [33m74bc442[m Fixed previous merge error
+[36m|[m * [36m|[m   [33m1da0cb4[m Merge pull request #14 from NicolasHuertas/development
+[36m|[m [1;32m|[m[1;33m\[m [36m\[m  
+* [1;32m|[m [1;33m\[m [36m\[m   [33m26e530b[m Merge pull request #15 from NicolasHuertas/Nico
+[1;33m|[m[36m\[m [1;32m\[m [1;33m\[m [36m\[m  
+[1;33m|[m [36m|[m[1;33m_[m[1;32m|[m[1;33m/[m [36m/[m  
+[1;33m|[m[1;33m/[m[36m|[m [1;32m|[m [36m/[m   
+[1;33m|[m [36m|[m [1;32m|[m[36m/[m    
+[1;33m|[m [36m|[m[36m/[m[1;32m|[m     
+[1;33m|[m * [1;32m|[m   [33mb20cb8e[m Merge branch 'development' into Nico
+[1;33m|[m [1;36m|[m[1;33m\[m [1;32m\[m  
+[1;33m|[m [1;36m|[m[1;33m/[m [1;32m/[m  
+[1;33m|[m[1;33m/[m[1;36m|[m [1;32m|[m   
+* [1;36m|[m [1;32m|[m   [33m20f2ab6[m Merge branch 'main' into development
+[32m|[m[1;32m\[m [1;36m\[m [1;32m\[m  
+[32m|[m [1;32m|[m [1;36m|[m[1;32m/[m  
+[32m|[m [1;32m|[m[1;32m/[m[1;36m|[m   
+[32m|[m * [1;36m|[m [33m202fbc9[m Fixed product view
+[32m|[m * [1;36m|[m   [33m88bbf65[m Merge pull request #12 from NicolasHuertas/development
+[32m|[m [34m|[m[35m\[m [1;36m\[m  
+[32m|[m * [35m\[m [1;36m\[m   [33m7653faf[m Merge pull request #9 from NicolasHuertas/development
+[32m|[m [36m|[m[1;31m\[m [35m\[m [1;36m\[m  
+[32m|[m * [1;31m\[m [35m\[m [1;36m\[m   [33m2f37728[m Merge pull request #7 from NicolasHuertas/development
+[32m|[m [1;32m|[m[1;33m\[m [1;31m\[m [35m\[m [1;36m\[m  
+[32m|[m * [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m   [33m3d9197a[m Merge pull request #4 from NicolasHuertas/development
+[32m|[m [1;34m|[m[1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m  
+[32m|[m * [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m   [33m45ea9e7[m Merge pull request #2 from NicolasHuertas/development
+[32m|[m [1;36m|[m[31m\[m [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m  
+* [1;36m|[m [31m\[m [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m   [33m407302a[m Merge pull request #13 from NicolasHuertas/Nico
+[35m|[m[33m\[m [1;36m\[m [31m\[m [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m [1;36m\[m  
+[35m|[m [33m|[m[35m_[m[1;36m|[m[35m_[m[31m|[m[35m_[m[1;35m|[m[35m_[m[1;33m|[m[35m_[m[1;31m|[m[35m/[m [1;36m/[m  
+[35m|[m[35m/[m[33m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;31m|[m [1;36m|[m   
+* [33m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;31m|[m [1;36m|[m   [33m012afbc[m Merge pull request #11 from NicolasHuertas/Nico
+[1;31m|[m[35m\[m [33m\[m [1;36m\[m [31m\[m [1;35m\[m [1;33m\[m [1;31m\[m [1;36m\[m  
+[1;31m|[m [35m|[m[1;31m_[m[33m|[m[1;31m_[m[1;36m|[m[1;31m_[m[31m|[m[1;31m_[m[1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m [1;36m/[m  
+[1;31m|[m[1;31m/[m[35m|[m [33m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [1;36m|[m   
+[1;31m|[m [35m|[m [33m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m * [33md5c0f2e[m Edit and list products feature added
+[1;31m|[m [35m|[m [33m|[m [1;36m|[m[33m_[m[31m|[m[33m_[m[1;35m|[m[33m_[m[1;33m|[m[33m/[m  
+[1;31m|[m [35m|[m [33m|[m[33m/[m[1;36m|[m [31m|[m [1;35m|[m [1;33m|[m   
+[1;31m|[m [35m|[m * [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m [33md6b3451[m Fixed urls
+[1;31m|[m [35m|[m[35m/[m [1;36m/[m [31m/[m [1;35m/[m [1;33m/[m  
+[1;31m|[m * [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m   [33m6f4fc80[m Merge branch 'development' of https://github.com/NicolasHuertas/FerreStock_Backend into Nico
+[1;31m|[m [36m|[m[1;31m\[m [1;36m\[m [31m\[m [1;35m\[m [1;33m\[m  
+[1;31m|[m [36m|[m[1;31m/[m [1;36m/[m [31m/[m [1;35m/[m [1;33m/[m  
+[1;31m|[m[1;31m/[m[36m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m   
+* [36m|[m [1;36m|[m [31m|[m [1;35m|[m [1;33m|[m   [33m352143c[m Merge pull request #8 from NicolasHuertas/AlexanderV
+[1;33m|[m[1;33m\[m [36m\[m [1;36m\[m [31m\[m [1;35m\[m [1;33m\[m  
+[1;33m|[m [1;33m|[m[1;33m_[m[36m|[m[1;33m_[m[1;36m|[m[1;33m_[m[31m|[m[1;33m_[m[1;35m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[1;33m|[m [36m|[m [1;36m|[m [31m|[m [1;35m|[m   
+[1;33m|[m * [36m|[m [1;36m|[m [31m|[m [1;35m|[m [33m63f57c2[m fixing bug
+[1;33m|[m * [36m|[m [1;36m|[m [31m|[m [1;35m|[m [33m3b73d37[m Adds Login and Logout
+[1;33m|[m [1;33m|[m * [1;36m|[m [31m|[m [1;35m|[m [33m00cbd7b[m Update .gitignore
+[1;33m|[m [1;33m|[m * [1;36m|[m [31m|[m [1;35m|[m [33m43419e9[m Authentication for product adding
+[1;33m|[m [1;33m|[m * [1;36m|[m [31m|[m [1;35m|[m [33m2a98a81[m Add product locally without images or user verification
+[1;33m|[m [1;33m|[m[1;33m/[m [1;36m/[m [31m/[m [1;35m/[m  
+[1;33m|[m[1;33m/[m[1;33m|[m [1;36m|[m [31m|[m [1;35m|[m   
+* [1;33m|[m [1;36m|[m [31m|[m [1;35m|[m [33mfa2ead0[m Merge pull request #6 from NicolasHuertas/NataliaL
+[1;34m|[m[1;33m\[m[1;33m|[m [1;36m|[m [31m|[m [1;35m|[m 
+[1;34m|[m * [1;36m|[m [31m|[m [1;35m|[m [33m978a4c9[m change DB URL
+* [1;35m|[m [1;36m|[m [31m|[m [1;35m|[m [33m07416e2[m Merge pull request #5 from NicolasHuertas/NataliaL
+[1;35m|[m[1;35m\[m[1;35m|[m [1;36m|[m [31m|[m [1;35m|[m 
+[1;35m|[m [1;35m|[m[1;35m_[m[1;36m|[m[1;35m_[m[31m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[1;35m|[m [1;36m|[m [31m|[m   
+[1;35m|[m * [1;36m|[m [31m|[m [33m8d609c6[m debug -> false
+* [31m|[m [1;36m|[m [31m|[m [33m9b3ab06[m Merge pull request #3 from NicolasHuertas/NataliaL
+[31m|[m[31m\[m[31m|[m [1;36m|[m [31m|[m 
+[31m|[m [31m|[m[31m_[m[1;36m|[m[31m/[m  
+[31m|[m[31m/[m[31m|[m [1;36m|[m   
+[31m|[m * [1;36m|[m [33m91fa2df[m add lib in the requeriments for deploy
+* [33m|[m [1;36m|[m [33m23a86b6[m Merge pull request #1 from NicolasHuertas/NataliaL
+[1;36m|[m[33m\[m[33m|[m [1;36m|[m 
+[1;36m|[m [33m|[m[1;36m/[m  
+[1;36m|[m[1;36m/[m[33m|[m   
+[1;36m|[m * [33me86a40a[m config in settings for deploy
+[1;36m|[m * [33m7d526ad[m HU13 - T1 backend registration
+[1;36m|[m[1;36m/[m  
+* [33m63cc955[m first commit

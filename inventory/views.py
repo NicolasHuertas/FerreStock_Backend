@@ -197,7 +197,7 @@ class UpdateProductStatusView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def put(self, request):
         product_id = request.data.get('product_id')
         is_pending = request.data.get('is_pending')
         quantity = request.data.get('quantity')
@@ -220,11 +220,14 @@ class UpdateProductStatusView(APIView):
 
 
         if is_pending == 'true':
-            product.pending_stock += quantity
+            if product.stock >= quantity:
+                product.pending_stock += quantity
+            else:
+                return Response({'message': ' La cantidad tomada para stock pendiente excede la del stock'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             if product.pending_stock >= quantity:
                 product.pending_stock -= quantity
-                product.stock += quantity
+                product.stock -=quantity
             else:
                 return Response({'message': 'Stock pendiente insuficiente'}, status=status.HTTP_400_BAD_REQUEST)
             
@@ -232,4 +235,40 @@ class UpdateProductStatusView(APIView):
         product.save()
         
         return Response({'message': 'Product status Pending actualizada'}, status=status.HTTP_200_OK)
+        
+        
+class UpdateProductSalesView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        product_id = request.data.get('product_id')
+        quantity = request.data.get('quantity')
+
+        if not product_id:
+            return Response({'message': 'Product ID no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not quantity:
+            return Response({'message': 'Quantity no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            return Response({'message': 'Quantity debe ser un número entero'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({'message': 'Producto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        
+        available = product.stock - product.pending_stock
+        
+        if quantity <= available:
+            product.stock -= quantity
+        else:
+            return Response({'message': f' La cantidad que va a salir de stock  excede la cantidad que hay disponible {available}'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        product.save()
+        
+        return Response({'message': f' Product sales actualizada, product: {product.name}, product stock: {product.stock}'}, status=status.HTTP_200_OK)
         
