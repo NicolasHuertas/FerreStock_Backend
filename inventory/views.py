@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Order, Product,Supplier
+from .models import CustomUser, Order, Product,Supplier, OrderItem
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
@@ -188,6 +188,13 @@ class UpdateOrderStatusView(APIView):
         if order.status == 'Pendiente':
             order.status = 'Entregado'
             order.save()
+            items = OrderItem.objects.filter(order=order_id)
+
+            for item in items:
+                product= item.product
+                product.stock += item.quantity
+                product.save()
+
             return Response({'message': 'Order status actualizada a Entregado'}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Order status no está pendiente, no se hicieron cambios'}, status=status.HTTP_200_OK)
