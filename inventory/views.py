@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Order, Product,Supplier
+from .models import CustomUser, Order, Product,Supplier, OrderItem
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
-    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer
+    ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer,ViewOrderSerializer,
+    ViewOrderProductSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -125,6 +126,12 @@ class SuppllierUpdateAPIView(generics.UpdateAPIView):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
 
+class SuppllierListAPIView(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+
 class OrderCreateView(generics.CreateAPIView):
     serializer_class = OrderSerializer
     authentication_classes = [TokenAuthentication]
@@ -141,3 +148,134 @@ class OrderCreateView(generics.CreateAPIView):
             item_serializer = OrderItemSerializer(data=item_data)
             if item_serializer.is_valid(raise_exception=True):
                 item_serializer.save()
+
+class OrderListView(generics.ListAPIView):
+    serializer_class = ViewOrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Order.objects.filter(user=self.request.user)
+        status = self.request.query_params.get('status')
+        supplier = self.request.query_params.get('supplier')
+        order_id = self.request.query_params.get('id')
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        if supplier:
+            queryset = queryset.filter(supplier__id=supplier)
+
+        if order_id:
+            queryset = queryset.filter(id=order_id)
+
+        return queryset
+    
+class UpdateOrderStatusView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        order_id = request.data.get('order_id')
+        if not order_id:
+            return Response({'message': 'Order ID no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            order = Order.objects.get(id=order_id, user=request.user)
+        except Order.DoesNotExist:
+            return Response({'message': 'Orden no encontrada o no tienes permisos para acceder a esta orden.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if order.status == 'Pendiente':
+            order.status = 'Entregado'
+            order.save()
+            items = OrderItem.objects.filter(order=order_id)
+
+            for item in items:
+                product= item.product
+                product.stock += item.quantity
+                product.save()
+
+            return Response({'message': 'Order status actualizada a Entregado'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Order status no está pendiente, no se hicieron cambios'}, status=status.HTTP_200_OK)
+
+
+class UpdateProductStatusView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        product_id = request.data.get('product_id')
+        is_pending = request.data.get('is_pending')
+        quantity = request.data.get('quantity')
+
+        if not product_id:
+            return Response({'message': 'Product ID no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not quantity:
+            return Response({'message': 'Quantity no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            return Response({'message': 'Quantity debe ser un número entero'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({'message': 'Producto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+
+        if is_pending == 'true':
+            if product.stock >= quantity:
+                product.pending_stock += quantity
+            else:
+                return Response({'message': ' La cantidad tomada para stock pendiente excede la del stock'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            if product.pending_stock >= quantity:
+                product.pending_stock -= quantity
+                product.stock -=quantity
+            else:
+                return Response({'message': 'Stock pendiente insuficiente'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            
+        product.save()
+        
+        return Response({'message': 'Product status Pending actualizada'}, status=status.HTTP_200_OK)
+        
+        
+class UpdateProductSalesView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        product_id = request.data.get('product_id')
+        quantity = request.data.get('quantity')
+
+        if not product_id:
+            return Response({'message': 'Product ID no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not quantity:
+            return Response({'message': 'Quantity no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            return Response({'message': 'Quantity debe ser un número entero'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({'message': 'Producto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        
+        available = product.stock - product.pending_stock
+        
+        if quantity <= available:
+            product.stock -= quantity
+        else:
+            return Response({'message': f' La cantidad que va a salir de stock  excede la cantidad que hay disponible {available}'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        product.save()
+        
+        return Response({'message': f' Product sales actualizada, product: {product.name}, product stock: {product.stock}'}, status=status.HTTP_200_OK)
+        
