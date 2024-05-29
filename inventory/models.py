@@ -71,6 +71,7 @@ class Product(models.Model):
     global_pending = models.BooleanField(default=False, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     #thumbnail = models.ImageField(aaaaaaaaa)
+    category = models.CharField(max_length=50, blank=True)
 
     def save(self, *args, **kwargs):
         self.global_pending = self.pending_stock > 0
