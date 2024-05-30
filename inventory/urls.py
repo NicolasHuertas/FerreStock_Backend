@@ -13,7 +13,7 @@ from .views import (
     OrderListView, 
     UpdateOrderStatusView,
     UpdateProductStatusView,
-    UpdateProductSalesView,
+    OrderDeleteView,OrderItemDeleteView,UpdateProductSalesView,
 )
 
 from rest_framework_simplejwt.views import (
@@ -41,8 +41,10 @@ urlpatterns = [
    path('suppliers/', SuppllierListAPIView.as_view(), name='supplier-list'),
 
    path('order/create/', OrderCreateView.as_view(), name='order-create'),
+   #path('order/<int:pk>/', OrderUpdateView.as_view(), name='order-update'),
    path('orders/', OrderListView.as_view(), name='orders-list'),
-   path('order/update-order-status/', UpdateOrderStatusView.as_view(), name='update-order-status')
-
+   path('order/update-order-status/', UpdateOrderStatusView.as_view(), name='update-order-status'),
+   path('order/delete/<int:pk>/', OrderDeleteView.as_view(), name='order-delete'),
+   path('order-item/delete/<int:pk>/', OrderItemDeleteView.as_view(), name='order-item-delete'),
 
 ]
