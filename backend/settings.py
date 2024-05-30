@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
+from decouple import config
+
 
 
 
@@ -47,9 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework_simplejwt',
-
     'inventory',
     'rest_framework',
     'rest_framework.authtoken',
@@ -226,6 +226,12 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', '')
 CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'inventory.CustomUser'

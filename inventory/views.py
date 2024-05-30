@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, serializers
 from rest_framework.views import APIView
-from .models import CustomUser, Order, Product,Supplier
+from .models import CustomUser, Order, Product,Supplier,OrderItem
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .serializers import (  
     CustomUserSerializer, CustomTokenObtainPairSerializer,
     ProductSerializer, ViewCustomUserSerializer,SupplierSerializer, OrderSerializer, OrderItemSerializer,ViewOrderSerializer,
-    ViewOrderProductSerializer
+    ViewOrderProductSerializer,OrderItemUpdateSerializer,OrderUpdateSerializer
 )
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -235,4 +235,33 @@ class UpdateProductStatusView(APIView):
         product.save()
         
         return Response({'message': 'Product status Pending actualizada'}, status=status.HTTP_200_OK)
-        
+    
+class OrderDeleteView(generics.DestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        order = self.get_object()
+        if order.user != request.user:
+            raise ValidationError('No tienes permiso para eliminar esta orden.')
+        return super().delete(request, *args, **kwargs)
+class OrderItemDeleteView(generics.DestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        return OrderItem.objects.filter(order__user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        order_item = self.get_object()
+        if order_item.order.user != request.user:
+            raise ValidationError('No tienes permiso para eliminar este item.')
+        return super().delete(request, *args, **kwargs)
